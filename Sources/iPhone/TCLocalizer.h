@@ -31,9 +31,21 @@
 - (id)initWithTable:(NSString *)table bundle:(NSBundle *)bundle;
 
 - (NSString*)localizedString:(NSString*)string;
-
 - (void)localizeView:(UIView*)view;
+- (void)localizeViewController:(UIViewController*)viewController;
 
+@end
+
+@interface UIViewController (TCLocalizerExtension)
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer;
+@end
+
+@interface UINavigationItem (TCLocalizerExtension)
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer;
+@end
+
+@interface UIBarButtonItem (TCLocalizerExtension)
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer;
 @end
 
 @interface UIView (TCLocalizerExtension)

@@ -16,6 +16,17 @@
 
 #import "TCLocalizer.h"
 
+@implementation UIViewController (TCLocalizerExtension)
+
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer
+{
+    [[self view] localizeWithLocalizer:localizer];
+    [[self navigationItem] localizeWithLocalizer:localizer];
+}
+
+@end
+
+
 @implementation UIView (TCLocalizerExtension)
 
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
@@ -25,6 +36,27 @@
             [subview localizeWithLocalizer:localizer];
         }
     }
+}
+
+@end
+
+@implementation UINavigationItem (TCLocalizerExtension)
+
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer
+{
+    [self setTitle:[localizer localizedString:[self title]]];
+    [self setPrompt:[localizer localizedString:[self prompt]]];
+    [[self leftBarButtonItem] localizeWithLocalizer:localizer];
+    [[self rightBarButtonItem] localizeWithLocalizer:localizer];
+}
+
+@end
+
+@implementation UIBarButtonItem (TCLocalizerExtension)
+
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer
+{
+    [self setTitle:[localizer localizedString:[self title]]];
 }
 
 @end
@@ -106,6 +138,11 @@
 - (void)localizeView:(UIView*)view;
 {    
 	[view localizeWithLocalizer:self];
+}
+
+- (void)localizeViewController:(UIViewController*)viewController
+{
+	[viewController localizeWithLocalizer:self];
 }
 
 @end
