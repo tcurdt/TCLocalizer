@@ -31,7 +31,7 @@
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     for(NSView *subview in [self subviews]) {
-		if([subview respondsToSelector:@selector(localizeWithLocalizer:)]) {
+        if([subview respondsToSelector:@selector(localizeWithLocalizer:)]) {
             [subview localizeWithLocalizer:localizer];
         }
     }
@@ -62,8 +62,11 @@
 
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
-    self.string = [localizer localizedString:self.string];
-    // TODO handle attributed strings
+    if (!self.isRichText) {
+        self.string = [localizer localizedString:self.string];
+    } else {
+        // TODO handle attributed strings
+    }
 }
 
 @end
@@ -79,41 +82,41 @@
     if (localizer == nil) {
         localizer = [[[self class] alloc] initWithTable:nil bundle:nil];
     }
-	return localizer;	
+    return localizer;
 }
 
 + (TCLocalizer*)localizerWithTable:(NSString*)theTable bundle:(NSBundle*)theBundle
 {
-	return [[[[self class] alloc] initWithTable:theTable bundle:theBundle] autorelease];
+    return [[[[self class] alloc] initWithTable:theTable bundle:theBundle] autorelease];
 }
 
 - (id)initWithTable:(NSString*)theTable bundle:(NSBundle*)theBundle
 {
     if(self = [super init]) {
-		if (!theTable) {
-			theTable = @"Localizable"; 
-		}
-		if (!theBundle) {
-			theBundle = [NSBundle mainBundle];		    
-		}
-		table = theTable;
-		bundle = theBundle;
-	}
+        if (!theTable) {
+            theTable = @"Localizable";
+        }
+        if (!theBundle) {
+            theBundle = [NSBundle mainBundle];
+        }
+        table = theTable;
+        bundle = theBundle;
+    }
     return self;
 }
 
 - (NSString*)localizedString:(NSString*)string
 {
-	if([string length]) {
-		string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		return NSLocalizedStringFromTableInBundle(string, table, bundle, nil);
-	}
+    if([string length]) {
+        string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        return NSLocalizedStringFromTableInBundle(string, table, bundle, nil);
+    }
     return string;
 }
 
 - (void)localizeView:(NSView*)view;
-{    
-	[view localizeWithLocalizer:self];
+{
+    [view localizeWithLocalizer:self];
 }
 
 - (void)localizeWindow:(NSWindow*)window
