@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2010, Torsten Curdt
+ * Copyright 2008-2013, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     for(UIView *subview in [self subviews]) {
-		if([subview respondsToSelector:@selector(localizeWithLocalizer:)]) {
+        if([subview respondsToSelector:@selector(localizeWithLocalizer:)]) {
             [subview localizeWithLocalizer:localizer];
         }
     }
@@ -103,46 +103,46 @@
     if (localizer == nil) {
         localizer = [[[self class] alloc] initWithTable:nil bundle:nil];
     }
-	return localizer;	
+    return localizer;
 }
 
 + (TCLocalizer*)localizerWithTable:(NSString*)theTable bundle:(NSBundle*)theBundle
 {
-	return [[[[self class] alloc] initWithTable:theTable bundle:theBundle] autorelease];
+    return [[[[self class] alloc] initWithTable:theTable bundle:theBundle] autorelease];
 }
 
 - (id)initWithTable:(NSString*)theTable bundle:(NSBundle*)theBundle
 {
     if(self = [super init]) {
-		if (!theTable) {
-			theTable = @"Localizable"; 
-		}
-		if (!theBundle) {
-			theBundle = [NSBundle mainBundle];		    
-		}
-		table = theTable;
-		bundle = theBundle;
-	}
+        if (!theTable) {
+            theTable = @"Localizable";
+        }
+        if (!theBundle) {
+            theBundle = [NSBundle mainBundle];
+        }
+        table = theTable;
+        bundle = theBundle;
+    }
     return self;
 }
 
 - (NSString*)localizedString:(NSString*)string
 {
-	if([string length]) {
-		string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		return NSLocalizedStringFromTableInBundle(string, table, bundle, nil);
-	}
+    if([string length]) {
+        string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        return NSLocalizedStringFromTableInBundle(string, table, bundle, nil);
+    }
     return string;
 }
 
 - (void)localizeView:(UIView*)view;
-{    
-	[view localizeWithLocalizer:self];
+{
+    [view localizeWithLocalizer:self];
 }
 
 - (void)localizeViewController:(UIViewController*)viewController
 {
-	[viewController localizeWithLocalizer:self];
+    [viewController localizeWithLocalizer:self];
 }
 
 @end

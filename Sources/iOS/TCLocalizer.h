@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011, Torsten Curdt
+ * Copyright 2008-2013, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,34 +25,42 @@
 @property (readonly) NSString *table;
 @property (readonly) NSBundle *bundle;
 
-+ (TCLocalizer*)localizer;	
++ (TCLocalizer*)localizer;
 + (TCLocalizer*)localizerWithTable:(NSString*)table bundle:(NSBundle*)bundle;
 
 - (id)initWithTable:(NSString *)table bundle:(NSBundle *)bundle;
 
 - (NSString*)localizedString:(NSString*)string;
-- (void)localizeView:(NSView*)view;
-- (void)localizeWindow:(NSWindow*)window;
+- (void)localizeView:(UIView*)view;
+- (void)localizeViewController:(UIViewController*)viewController;
 
 @end
 
-@interface NSWindow (TCLocalizerExtension)
+@interface UIViewController (TCLocalizerExtension)
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer;
 @end
 
-@interface NSView (TCLocalizerExtension)
+@interface UINavigationItem (TCLocalizerExtension)
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer;
 @end
 
-@interface NSButton (TCLocalizerExtension)
+@interface UIBarButtonItem (TCLocalizerExtension)
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer;
 @end
 
-@interface NSTextField (TCLocalizerExtension)
+@interface UIView (TCLocalizerExtension)
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer;
 @end
 
-@interface NSTextView (TCLocalizerExtension)
+@interface UIButton (TCLocalizerExtension)
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer;
+@end
+
+@interface UILabel (TCLocalizerExtension)
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer;
+@end
+
+@interface UITextView (TCLocalizerExtension)
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer;
 @end
 
