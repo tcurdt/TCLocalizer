@@ -7,13 +7,6 @@ With TCLocalizer you use only have to maintain a single NIB and localize during 
       [[TCLocalizer localizer] localizeView:self.view];
   }
 
-It can't get much easier than that.
-
-Right now TCLocalizer supports
-
-  - UIView
-  - UIButton
-  - UILabel
-  - UITextView
+It can't get much easier than that. Has support for iOS and OSX.
 
 The code is released under the Apache License 2.0.
