@@ -61,7 +61,6 @@
 
 @end
 
-
 @implementation UIButton (TCLocalizerExtension)
 
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
@@ -88,6 +87,31 @@
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     self.text = [localizer localizedString:self.text];
+}
+
+@end
+
+@implementation UITableViewCell (TCLocalizerExtension)
+
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer
+{
+    [[self textLabel] localizeWithLocalizer:localizer];
+    [[self detailTextLabel] localizeWithLocalizer:localizer];
+
+    [[self contentView] localizeWithLocalizer:localizer];
+    [[self backgroundView] localizeWithLocalizer:localizer];
+    [[self accessoryView] localizeWithLocalizer:localizer];
+}
+
+@end
+
+@implementation UICollectionViewCell (TCLocalizerExtension)
+
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer
+{
+    [[self contentView] localizeWithLocalizer:localizer];
+    [[self backgroundView] localizeWithLocalizer:localizer];
+    [[self selectedBackgroundView] localizeWithLocalizer:localizer];    
 }
 
 @end
@@ -133,6 +157,16 @@
         return NSLocalizedStringFromTableInBundle(string, table, bundle, nil);
     }
     return string;
+}
+
+- (void)localizeTableViewCell:(UITableViewCell*)cell;
+{
+    [cell localizeWithLocalizer:self];
+}
+
+- (void)localizeCollectionViewCell:(UICollectionViewCell*)cell;
+{
+    [cell localizeWithLocalizer:self];
 }
 
 - (void)localizeView:(UIView*)view;

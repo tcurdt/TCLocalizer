@@ -31,6 +31,9 @@
 - (id)initWithTable:(NSString *)table bundle:(NSBundle *)bundle;
 
 - (NSString*)localizedString:(NSString*)string;
+
+- (void)localizeTableViewCell:(UITableViewCell*)cell;
+- (void)localizeCollectionViewCell:(UICollectionViewCell*)cell;
 - (void)localizeView:(UIView*)view;
 - (void)localizeViewController:(UIViewController*)viewController;
 
@@ -64,3 +67,10 @@
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer;
 @end
 
+@interface UITableViewCell (TCLocalizerExtension)
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer;
+@end
+
+@interface UICollectionViewCell (TCLocalizerExtension)
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer;
+@end
