@@ -73,6 +73,15 @@
 
 @end
 
+@implementation UITextField (TCLocalizerExtension)
+
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer
+{
+    self.placeholder = [localizer localizedString:self.placeholder];
+}
+
+@end
+
 @implementation UILabel (TCLocalizerExtension)
 
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer

@@ -59,6 +59,10 @@
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer;
 @end
 
+@interface UITextField (TCLocalizerExtension)
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer;
+@end
+
 @interface UILabel (TCLocalizerExtension)
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer;
 @end
