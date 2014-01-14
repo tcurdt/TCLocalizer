@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2013, Torsten Curdt
+ * Copyright 2008-2014, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,15 @@
 #import "TCLocalizer.h"
 
 @implementation UIViewController (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     [[self view] localizeWithLocalizer:localizer];
     [[self navigationItem] localizeWithLocalizer:localizer];
 }
-
 @end
 
 
 @implementation UIView (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     for(UIView *subview in [self subviews]) {
@@ -37,11 +34,9 @@
         }
     }
 }
-
 @end
 
 @implementation UINavigationItem (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     [self setTitle:[localizer localizedString:[self title]]];
@@ -49,20 +44,16 @@
     [[self leftBarButtonItem] localizeWithLocalizer:localizer];
     [[self rightBarButtonItem] localizeWithLocalizer:localizer];
 }
-
 @end
 
 @implementation UIBarButtonItem (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     [self setTitle:[localizer localizedString:[self title]]];
 }
-
 @end
 
 @implementation UIButton (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     [self setTitle:[localizer localizedString:[self titleForState:UIControlStateNormal]] forState:UIControlStateNormal];
@@ -70,38 +61,30 @@
     [self setTitle:[localizer localizedString:[self titleForState:UIControlStateDisabled]] forState:UIControlStateDisabled];
     [self setTitle:[localizer localizedString:[self titleForState:UIControlStateSelected]] forState:UIControlStateSelected];
 }
-
 @end
 
 @implementation UITextField (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     self.placeholder = [localizer localizedString:self.placeholder];
 }
-
 @end
 
 @implementation UILabel (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     self.text = [localizer localizedString:self.text];
 }
-
 @end
 
 @implementation UITextView (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     self.text = [localizer localizedString:self.text];
 }
-
 @end
 
 @implementation UITableViewCell (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     [[self textLabel] localizeWithLocalizer:localizer];
@@ -111,19 +94,17 @@
     [[self backgroundView] localizeWithLocalizer:localizer];
     [[self accessoryView] localizeWithLocalizer:localizer];
 }
-
 @end
 
 @implementation UICollectionViewCell (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     [[self contentView] localizeWithLocalizer:localizer];
     [[self backgroundView] localizeWithLocalizer:localizer];
     [[self selectedBackgroundView] localizeWithLocalizer:localizer];    
 }
-
 @end
+
 
 @implementation TCLocalizer
 

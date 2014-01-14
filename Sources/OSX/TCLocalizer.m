@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2013, Torsten Curdt
+ * Copyright 2008-2014, Torsten Curdt
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,14 @@
 #import "TCLocalizer.h"
 
 @implementation NSWindow (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     self.title = [localizer localizedString:self.title];
     [[self contentView] localizeWithLocalizer:localizer];
 }
-
 @end
 
 @implementation NSView (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     for(NSView *subview in [self subviews]) {
@@ -36,30 +33,24 @@
         }
     }
 }
-
 @end
 
 @implementation NSButton (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     self.title = [localizer localizedString:self.title];
     self.toolTip = [localizer localizedString:self.toolTip];
 }
-
 @end
 
 @implementation NSTextField (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     self.stringValue = [localizer localizedString:self.stringValue];
 }
-
 @end
 
 @implementation NSTextView (TCLocalizerExtension)
-
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     if (!self.isRichText) {
@@ -68,7 +59,6 @@
         // TODO handle attributed strings
     }
 }
-
 @end
 
 @implementation TCLocalizer
