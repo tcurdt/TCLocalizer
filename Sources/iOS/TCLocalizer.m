@@ -73,7 +73,18 @@
 @implementation UILabel (TCLocalizerExtension)
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
-    self.text = [localizer localizedString:self.text];
+    if (self.attributedText) {
+        NSAttributedString *as = [self.attributedText mutableCopy];
+        NSMutableString *ms = [as mutableString];
+        NSString *src = ms;
+        NSString *dst = [localizer localizedString:src];
+        [ms replaceOccurrencesOfString:src
+                            withString:dst
+                               options:NSLiteralSearch range:NSMakeRange(0, src.length)];
+        self.attributedText = as;
+    } else {
+        self.text = [localizer localizedString:self.text];
+    }
 }
 @end
 
@@ -122,7 +133,7 @@
 
 + (TCLocalizer*)localizerWithTable:(NSString*)theTable bundle:(NSBundle*)theBundle
 {
-    return [[[[self class] alloc] initWithTable:theTable bundle:theBundle] autorelease];
+    return [[[self class] alloc] initWithTable:theTable bundle:theBundle];
 }
 
 - (id)initWithTable:(NSString*)theTable bundle:(NSBundle*)theBundle

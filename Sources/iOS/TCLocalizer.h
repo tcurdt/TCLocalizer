@@ -28,8 +28,6 @@
 + (TCLocalizer*)localizer;
 + (TCLocalizer*)localizerWithTable:(NSString*)table bundle:(NSBundle*)bundle;
 
-- (id)initWithTable:(NSString *)table bundle:(NSBundle *)bundle;
-
 - (NSString*)localizedString:(NSString*)string;
 
 - (void)localizeTableViewCell:(UITableViewCell*)cell;

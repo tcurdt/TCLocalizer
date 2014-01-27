@@ -77,7 +77,7 @@
 
 + (TCLocalizer*)localizerWithTable:(NSString*)theTable bundle:(NSBundle*)theBundle
 {
-    return [[[[self class] alloc] initWithTable:theTable bundle:theBundle] autorelease];
+    return [[[self class] alloc] initWithTable:theTable bundle:theBundle];
 }
 
 - (id)initWithTable:(NSString*)theTable bundle:(NSBundle*)theBundle
