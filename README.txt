@@ -4,6 +4,8 @@ With TCLocalizer you use only have to maintain a single NIB and localize during 
 
   - (void) viewDidLoad
   {
+      [super viewDidLoad];
+      
       [[TCLocalizer localizer] localizeViewController:self];
   }
 
