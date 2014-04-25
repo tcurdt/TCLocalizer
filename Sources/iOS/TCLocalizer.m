@@ -155,9 +155,17 @@
 {
     if([string length]) {
         string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        return NSLocalizedStringFromTableInBundle(string, table, bundle, nil);
+	NSString *translate = [bundle localizedStringForKey:string value:nil table:table];
+	if (translate) {
+	    return translate;
+	} else {
+	    // key was not found in dictionary
+	    return string;
+	}
+    } else {
+	// key was empty
+	return string;
     }
-    return string;
 }
 
 - (void)localizeTableViewCell:(UITableViewCell*)cell;
