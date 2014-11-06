@@ -17,10 +17,6 @@
 #import <Foundation/Foundation.h>
 
 @interface TCLocalizer : NSObject
-{
-    NSString *table;
-    NSBundle *bundle;
-}
 
 @property (readonly) NSString *table;
 @property (readonly) NSBundle *bundle;
@@ -32,6 +28,7 @@
 
 - (NSString*)localizedString:(NSString*)string;
 - (void)localizeView:(NSView*)view;
+- (void)localizeMenu:(NSMenu*)menu;
 - (void)localizeWindow:(NSWindow*)window;
 
 @end
@@ -41,6 +38,10 @@
 @end
 
 @interface NSView (TCLocalizerExtension)
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer;
+@end
+
+@interface NSMenu (TCLocalizerExtension)
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer;
 @end
 

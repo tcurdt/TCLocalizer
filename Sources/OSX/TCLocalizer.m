@@ -16,10 +16,20 @@
 
 #import "TCLocalizer.h"
 
+@interface TCLocalizer ()
+
+- (NSString*)localizedString:(NSString*)string context:(id)context;
+
+@property (strong, readwrite) NSString *table;
+@property (strong, readwrite) NSBundle *bundle;
+
+@end
+
+
 @implementation NSWindow (TCLocalizerExtension)
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
-    self.title = [localizer localizedString:self.title];
+    self.title = [localizer localizedString:self.title context:self];
     [[self contentView] localizeWithLocalizer:localizer];
 }
 @end
@@ -35,18 +45,34 @@
 }
 @end
 
+@implementation NSMenu (TCLocalizerExtension)
+- (void)localizeWithLocalizer:(TCLocalizer*)localizer
+{
+    self.title = [localizer localizedString:self.title context:self];
+
+    for(NSMenuItem *menuitem in self.itemArray) {
+        if (!menuitem.isSeparatorItem) {
+            menuitem.title = [localizer localizedString:menuitem.title context:menuitem];
+        }
+
+        [menuitem.submenu localizeWithLocalizer:localizer];
+    }
+}
+@end
+
+
 @implementation NSButton (TCLocalizerExtension)
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
-    self.title = [localizer localizedString:self.title];
-    self.toolTip = [localizer localizedString:self.toolTip];
+    self.title = [localizer localizedString:self.title context:self];
+    self.toolTip = [localizer localizedString:self.toolTip context:self];
 }
 @end
 
 @implementation NSTextField (TCLocalizerExtension)
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
-    self.stringValue = [localizer localizedString:self.stringValue];
+    self.stringValue = [localizer localizedString:self.stringValue context:self];
 }
 @end
 
@@ -54,7 +80,7 @@
 - (void)localizeWithLocalizer:(TCLocalizer*)localizer
 {
     if (!self.isRichText) {
-        self.string = [localizer localizedString:self.string];
+        self.string = [localizer localizedString:self.string context:self];
     } else {
         // TODO handle attributed strings
     }
@@ -62,9 +88,6 @@
 @end
 
 @implementation TCLocalizer
-
-@synthesize table;
-@synthesize bundle;
 
 + (TCLocalizer*)localizer
 {
@@ -89,32 +112,47 @@
         if (!theBundle) {
             theBundle = [NSBundle mainBundle];
         }
-        table = theTable;
-        bundle = theBundle;
+        self.table = theTable;
+        self.bundle = theBundle;
     }
     return self;
 }
-
 - (NSString*)localizedString:(NSString*)string
+{
+    return [self localizedString:string context:nil];
+}
+
+- (NSString*)localizedString:(NSString*)string context:(id)context
 {
     if([string length]) {
         string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	NSString *translate = [bundle localizedStringForKey:string value:nil table:table];
-	if (translate) {
-	    return translate;
-	} else {
-	    // key was not found in dictionary
-	    return string;
-	}
+        NSString *translate = [self.bundle localizedStringForKey:string value:nil table:self.table];
+        if (translate) {
+            return translate;
+        } else {
+            // key was not found in dictionary
+            #ifdef DEBUG
+            NSLog(@"WARN: no translation for '%@' for %@", string, context);
+            #endif
+            return string;
+        }
     } else {
-	// key was empty
-	return string;
+        // key was empty
+        #ifdef DEBUG
+        NSLog(@"WARN: empty key for %@", context);
+        #endif
+        return string;
     }
 }
 
 - (void)localizeView:(NSView*)view;
 {
     [view localizeWithLocalizer:self];
+}
+
+- (void)localizeMenu:(NSMenu*)menu;
+{
+    [menu localizeWithLocalizer:self];
 }
 
 - (void)localizeWindow:(NSWindow*)window
